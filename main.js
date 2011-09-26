@@ -1,8 +1,8 @@
 
 var Class = require("coop").Class;
-var konode = require("konode");
+var synergy = require("synergy");
 var resources = require("./resources");
 
-konode({
+synergy({
 	styles: "./assets/style.less"
 })
