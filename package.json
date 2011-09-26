@@ -14,7 +14,7 @@
     "node": "~v0.4.2"
   },
   "dependencies": {
-    "konode": ">=0.0.1"
+    "synergy": ">=0.1.1"
   },
   "devDependencies": {}
 }
