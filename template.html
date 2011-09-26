@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Hello world!</title>
+	<!--<link href='http://fonts.googleapis.com/css?family=Istok+Web' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" type="text/css" href="/styles.css" />
+	<script src="/site.js"></script>
+	<script language="javascript">
+		var client = require("konode/client");
+		var siteViewModel = require("./viewmodel");
+		
+		$(function() {
+			ko.applyBindings(siteViewModel);
+		});
+	</script>
+</head>
+
+<body>
+	<header>
+		<h1>goo</h1>
+		<nav>
+			Nav here
+		</nav>
+		<div id="minimap">
+			Minimap
+		</div>
+	</header>
+	<div id="main">
+		Game here
+	</div>
+	<footer>
+		Controls here
+	</footer>
+</div>
+
+</body>
+</html>
+
+

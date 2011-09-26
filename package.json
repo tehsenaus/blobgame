@@ -1,0 +1,17 @@
+{
+  "author": "Dynamo Studios Ltd <support@taskary.com>",
+  "name": "taskary",
+  "description": "Taskary.com site",
+  "version": "0.0.1",
+  "homepage": "taskary.com",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~v0.4.2"
+  },
+  "dependencies": {
+    "resource": ">=0.0.1"
+  },
+  "devDependencies": {}
+}

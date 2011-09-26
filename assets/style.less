@@ -1,0 +1,90 @@
+
+@import "reset";
+@import "flexbox";
+
+@GR: 1.6;
+@IGR: 1 / @GR;
+
+@fg: #505050;
+@bg: #ddd;
+@bdr: #aaa;
+@elH: 36px;
+
+@navbarH: @elH * @GR;
+@topbarH: @navbarH * @GR;
+
+@sbW: 200px;
+@mmH: @sbW;
+
+body {
+	color: @fg;
+	background-color: @bg;
+	font-family: 'Istok Web', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+
+header {
+	@hP: 10px;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: @sbW - 2 * @hP;
+	padding: @hP;
+	padding-bottom: @hP + @mmH;
+
+	border-left: 1px solid @bdr;
+
+	h1 {
+		font-size: 80px;
+	}
+}
+
+#minimap {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: @mmH;
+}
+
+
+#main {
+	position: absolute;
+	left: @sbW;
+	right: 0;
+	top: 0;
+	bottom: 0;
+
+	background-color: White;
+	border-left: 1px solid @bdr;
+}
+
+table {
+	width: 100%;
+	border: 1px solid @bdr;
+
+	td, th {
+		padding: 0 10px;
+	}
+
+	> thead {
+		>tr {
+			height: @elH;
+			line-height: @elH;
+			background-color: @bg;
+			text-transform: uppercase;
+			font-weight: bold;
+			text-align: left;
+		}
+	}
+
+	> tbody {
+		>tr {
+			height: @elH * @IGR;
+			line-height: @elH * @IGR;
+			border-top: 1px solid @bdr;
+		}
+	}
+}
