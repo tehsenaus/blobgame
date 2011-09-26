@@ -1,17 +1,20 @@
 {
-  "author": "Dynamo Studios Ltd <support@taskary.com>",
-  "name": "taskary",
-  "description": "Taskary.com site",
+  "authors": {
+    "Sean Micklethwaite",
+    "Kate Ambrose"
+  },
+  "name": "googame",
+  "description": "goo",
   "version": "0.0.1",
-  "homepage": "taskary.com",
   "repository": {
-    "url": ""
+    "url": "git://github.com/tehsenaus/blobgame.git",
+    "type": "git"
   },
   "engines": {
     "node": "~v0.4.2"
   },
   "dependencies": {
-    "resource": ">=0.0.1"
+    "konode": ">=0.0.1"
   },
   "devDependencies": {}
 }
