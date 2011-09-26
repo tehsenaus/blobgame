@@ -2,7 +2,7 @@
  * Site View Model
  **/
 
-var Router = require("konode/core/router");
+var Router = require("synergy/core/router");
 var Class = require("coop").Class;
 var resources = require("./resources");
 
