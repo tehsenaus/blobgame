@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="/styles.css" />
 	<script src="/site.js"></script>
 	<script language="javascript">
-		var client = require("konode/client");
+		var client = require("synergy/client");
 		var siteViewModel = require("./viewmodel");
 		
 		$(function() {
@@ -27,7 +27,7 @@
 		</div>
 	</header>
 	<div id="main">
-		Game here
+		<canvas id="gamecanvas" data-bind="gameCanvas: true"></canvas>
 	</div>
 	<footer>
 		Controls here
