@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "synergy": ">=0.1.1",
-    "coop": ">=0.1.1"
+    "coop": ">=0.1.1",
+    "resource": ">=0.0.1"
   },
   "devDependencies": {}
 }
