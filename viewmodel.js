@@ -6,7 +6,7 @@ var Router = require("synergy/core/router");
 var coop = require("coop");
 var Class = coop.Class, Options = coop.Options;
 var resources = require("./resources");
-var GooGame = require("./game");
+var GooGame = window.GooGame = require("./game");
 
 
 ko.bindingHandlers.gameCanvas = {

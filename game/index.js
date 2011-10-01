@@ -1,4 +1,6 @@
 
+var coop = require("coop");
+var Class = coop.Class, Options = coop.Options;
 
 var behaviours = require("./behaviours");
 
@@ -9,7 +11,8 @@ var Vector = shapes.Vector, Rect = shapes.Rect;
 var CanvasRenderer = new Class([Options], {
 	initialize: function(canvas, options) {
 		this.super(options);
-
+			
+		console.log("init", canvas);
 		this.canvas = typeof canvas == "string" ?
 			document.getElementById(canvas)	: canvas;
 		this.context = this.canvas.getContext("2d");
@@ -78,6 +81,7 @@ var CanvasRenderer = new Class([Options], {
 
 var Game = new Class({
 	initialize: function (canvas, options) {
+		console.log("game", canvas, options);
 		this.renderer = new CanvasRenderer(canvas, options);
 		this.objects = [];
 	},
@@ -302,6 +306,7 @@ var Blob = new Class([BaseBlob], {
 
 var GooGame = module.exports = new Class([Game], {
 	initialize: function (canvas) {
+		console.log("start googame");
 		var me = this;
 		this.selected = [];
 		this.super(canvas, {
