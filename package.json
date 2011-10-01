@@ -14,7 +14,7 @@
     "node": "~v0.4.2"
   },
   "dependencies": {
-    "synergy": ">=0.1.1",
+    "synergy": ">=0.1.2",
     "coop": ">=0.1.1",
     "resource": ">=0.0.1"
   },
