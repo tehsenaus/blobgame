@@ -88,6 +88,7 @@ var Rect = exports.Rect = new Class({
 
 var Circle = exports.Circle = new Class({
 	initialize: function (position, radius) {
+		this.super_co(arguments, 2);
 		this.radius = radius;
 		this.position = position;
 	},

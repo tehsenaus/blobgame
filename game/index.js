@@ -103,12 +103,14 @@ var Game = new Class({
 		this.renderer.render();
 	}
 });
-var GameObject = new Class({
+var GameObject = new Class([behaviours.Actor], {
 	update: function () {
-		
+		if(this.dead) return false;
+		this.behaviour.update(this);
 	},
 	interact: function (objects) {
-		
+		if(this.dead) return false;
+		this.behaviour.interact(this, objects);
 	},
 	render: function (ctx) {
 		
