@@ -84,17 +84,21 @@ var Game = new Class({
 		console.log("game", canvas, options);
 		this.renderer = new CanvasRenderer(canvas, options);
 		this.objects = [];
+		this.time = new Date().getTime();
 	},
 	add: function(object) {
 		this.objects.push(object);
 	},
 	run: function () {
-		this.time = new Date().getTime();
+		var t = new Date().getTime();
+		var dt = (t - this.time) / 1000;
+		this.time = t;
+
 		this.objects.forEach(function (o) {
-			o.update();
+			o.update(dt);
 		});
 		this.objects.forEach(function (o) {
-			o.interact(this.objects);
+			o.interact(this.objects, dt);
 		}, this);
 		this.objects = this.objects.filter(function (o) {
 			return !o.dead;
@@ -104,13 +108,13 @@ var Game = new Class({
 	}
 });
 var GameObject = new Class([behaviours.Actor], {
-	update: function () {
+	update: function (dt) {
 		if(this.dead) return false;
-		this.behaviour.update(this);
+		this.behaviour.update(this, dt);
 	},
-	interact: function (objects) {
+	interact: function (objects, dt) {
 		if(this.dead) return false;
-		this.behaviour.interact(this, objects);
+		this.behaviour.interact(this, objects, dt);
 	},
 	render: function (ctx) {
 		
@@ -122,7 +126,8 @@ var BaseBlob = new Class([shapes.Circle, GameObject], {
 	initialize: function (owner, position, radius) {
 		this.super(position, radius);
 		this.owner = owner;
-		this.mass = Math.PI * this.radius * this.radius;
+		this.density = 10;
+		this.mass = Math.PI * this.radius * this.radius * this.density;
 	},
 
 	intersect: function (shape) {
@@ -132,7 +137,7 @@ var BaseBlob = new Class([shapes.Circle, GameObject], {
 	addMass: function (m) {
 		this.mass += m;
 		if(this.mass > 0)
-			this.radius = Math.sqrt(this.mass / Math.PI);
+			this.radius = Math.sqrt(this.mass / (Math.PI * this.density));
 		else
 			this.dead = true;
 	},
@@ -159,11 +164,11 @@ var Projectile = new Class([BaseBlob], {
 	initialize: function (owner, position, radius, target) {
 		this.super(owner, position, radius);
 		
-		this.speed = 10;
-		this.decay = 0.95;
+		this.speed = 100;
 		var delta = target.position.sub(this.position).normalize();
 		
 		this.velocity = delta.mul(this.speed);
+		this.pushBehaviour(new behaviours.Projectile())
 	},
 
 	interact: function(objects) {
@@ -185,18 +190,6 @@ var Projectile = new Class([BaseBlob], {
 			this.owner, this.position, this.radius
 		));
 		this.dead = true;
-	},
-
-	render: function (ctx) {
-		if(this.dead) return false;
-
-		if(this.velocity.norm() > 0.5) {
-			this.position = this.position.add(this.velocity);
-			this.velocity = this.velocity.mul(this.decay);
-			this.super(ctx);
-		} else {
-			this.minify();
-		}
 	}
 });
 
@@ -225,7 +218,7 @@ var MiniBlob = new Class([BaseBlob], {
 
 
 var Blob = new Class([BaseBlob], {
-	rechargeMs: 100,
+	rechargeMs: 250,
 	range: 150,
 
 	initialize: function (owner, position) {
@@ -288,11 +281,10 @@ var Blob = new Class([BaseBlob], {
 			window.game.add(new Projectile(
 				this.owner,
 				this.position.add(target.position.sub(this.position).normalize().mul(this.radius)),
-				Math.sqrt(m / Math.PI), target
+				Math.sqrt(m / (Math.PI * this.density)), target
 			));
 
-			this.mass -= m;
-			this.radius = Math.sqrt(this.mass / Math.PI);
+			this.addMass(-m);
 			this.lastAttack = game.time;
 		}
 	},

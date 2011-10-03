@@ -57,12 +57,18 @@ var Moving = exports.Moving = new Class([Behaviour], {
 });
 var Resistance = exports.Resistance = new Class([Behaviour], {
 	update: function (object, dt) {
-		var r = object.velocity.norm() * 0.05 * dt;
+		var r = object.velocity.norm() * 0.25 * object.radius * dt / object.mass;
+		console.log(r);
 		object.velocity = object.velocity.mul(Math.max(0, 1.0-r));
 		this.super(object, dt);
 	}
 });
-
+var Acceleration = exports.Acceleration = new Class([Behaviour], {
+	update: function (direction, object, dt) {
+		object.velocity = object.velocity.add(direction.mul(object.power * dt / object.mass));
+		this.super(object, dt);
+	}
+});
 
 exports.Move = new Class([Behaviour], {
 	initialize: function (target) {
@@ -76,8 +82,11 @@ exports.Move = new Class([Behaviour], {
 
 
 exports.Projectile = new Class([Moving, Resistance], {
-	initialize: function () {
-		
+	update: function (object, dt) {
+		this.super(object, dt);
+		if(object.velocity.norm() < 10) {
+			object.stopBehaviour(this);
+		}
 	}
 });
 
